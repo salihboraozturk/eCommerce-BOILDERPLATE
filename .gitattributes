@@ -62,3 +62,4 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 *.1 linguist-documentation
+*.3 linguist-language=text
