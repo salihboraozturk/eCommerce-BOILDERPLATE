@@ -19,6 +19,8 @@ namespace eCommerceProject.Products.Dto
             CreateMap<CreateOrEditProductDto, Product>();
             CreateMap<Product, ProductCacheItem>();
             CreateMap<ProductCacheItem, Product>();
+            CreateMap<ProductCacheItem, ProductViewDto>();
+            CreateMap<ProductViewDto, ProductCacheItem>();
 
         }
            

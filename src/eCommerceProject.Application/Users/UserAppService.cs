@@ -65,6 +65,18 @@ namespace eCommerceProject.Users
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
 
+            if (input.RoleNames.Length == 0)
+            {
+                String[] roleNames = new String[1];
+                roleNames[0] = _roleManager.GetRoleByName("User").Name;
+                input.RoleNames = roleNames;
+                
+               
+                CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
+            }
+
+            CurrentUnitOfWork.SaveChanges();
+
             if (input.RoleNames != null)
             {
                 CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));

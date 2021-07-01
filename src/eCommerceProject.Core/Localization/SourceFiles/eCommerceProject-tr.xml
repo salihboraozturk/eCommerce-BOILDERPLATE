@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="tr">
   <texts>
+    <text name="Products" value="Ürünler" />
     <text name="HomePage" value="Ana Sayfa" />
     <text name="About" value="Hakkında" />
     <text name="WelcomeMessage" value="eCommerceProject projesine hoşgeldiniz!" />

@@ -22,6 +22,7 @@ namespace eCommerceProject.MultiTenancy
     public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, PagedTenantResultRequestDto, CreateTenantDto, TenantDto>, ITenantAppService
     {
         private readonly TenantManager _tenantManager;
+        private readonly PermissionManager _permissionManager;
         private readonly EditionManager _editionManager;
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
@@ -33,9 +34,11 @@ namespace eCommerceProject.MultiTenancy
             EditionManager editionManager,
             UserManager userManager,
             RoleManager roleManager,
+            PermissionManager permissionManager,
             IAbpZeroDbMigrator abpZeroDbMigrator)
             : base(repository)
         {
+            _permissionManager = permissionManager;
             _tenantManager = tenantManager;
             _editionManager = editionManager;
             _userManager = userManager;
@@ -73,9 +76,23 @@ namespace eCommerceProject.MultiTenancy
 
                 await CurrentUnitOfWork.SaveChangesAsync(); // To get static role ids
 
+                //-----
+                var listPermission = _permissionManager.GetPermission("List");
+                var manuplationPermission = _permissionManager.GetPermission("Manipulation");
+                
+                var moderatorRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Mod);
+                await _roleManager.GrantPermissionAsync(moderatorRole, listPermission);
+                await _roleManager.GrantPermissionAsync(moderatorRole, manuplationPermission);
+
+                var userRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.User);
+                await _roleManager.GrantPermissionAsync(userRole, listPermission); 
+                //-----
+          
+
                 // Grant all permissions to admin role
                 var adminRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Admin);
                 await _roleManager.GrantAllPermissionsAsync(adminRole);
+
 
                 // Create admin user for the tenant
                 var adminUser = User.CreateTenantAdminUser(tenant.Id, input.AdminEmailAddress);

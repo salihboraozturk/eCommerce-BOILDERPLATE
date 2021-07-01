@@ -9,6 +9,8 @@ namespace eCommerceProject.Authorization
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
             context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
+            context.CreatePermission(PermissionNames.Manipulation, L("Manipulation"));
+            context.CreatePermission(PermissionNames.List, L("List"));
             context.CreatePermission(PermissionNames.Pages_Users_Activation, L("UsersActivation"));
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);

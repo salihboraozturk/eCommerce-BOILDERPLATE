@@ -38,7 +38,6 @@ namespace eCommerceProject.Roles
             role.SetNormalizedName();
 
             CheckErrors(await _roleManager.CreateAsync(role));
-
             var grantedPermissions = PermissionManager
                 .GetAllPermissions()
                 .Where(p => input.GrantedPermissions.Contains(p.Name))

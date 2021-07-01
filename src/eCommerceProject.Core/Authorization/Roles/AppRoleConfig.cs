@@ -16,6 +16,20 @@ namespace eCommerceProject.Authorization.Roles
                 )
             );
 
+            roleManagementConfig.StaticRoles.Add(
+                new StaticRoleDefinition(
+                    StaticRoleNames.Host.Mod,
+                    MultiTenancySides.Host
+                )
+            );
+
+            roleManagementConfig.StaticRoles.Add(
+                new StaticRoleDefinition(
+                    StaticRoleNames.Host.User,
+                    MultiTenancySides.Host
+                )
+            );
+
             // Static tenant roles
 
             roleManagementConfig.StaticRoles.Add(
@@ -23,6 +37,21 @@ namespace eCommerceProject.Authorization.Roles
                     StaticRoleNames.Tenants.Admin,
                     MultiTenancySides.Tenant
                 )
+            );
+
+            roleManagementConfig.StaticRoles.Add(
+                new StaticRoleDefinition(
+                    StaticRoleNames.Tenants.Mod,
+                    MultiTenancySides.Tenant
+                )
+            );
+
+            roleManagementConfig.StaticRoles.Add(
+                new StaticRoleDefinition(
+                    StaticRoleNames.Tenants.User,
+                    MultiTenancySides.Tenant
+                )
+               
             );
         }
     }

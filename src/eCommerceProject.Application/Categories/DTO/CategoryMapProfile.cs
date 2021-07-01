@@ -12,7 +12,10 @@ namespace eCommerceProject.Categories.DTO
             CreateMap<CategoryViewDto, Category>();
             CreateMap<CreateOrEditCategoryDto, Category>();
             CreateMap<Category, CreateOrEditCategoryDto>();
-           
+            CreateMap<Category, CategoryCacheItem>();
+            CreateMap<CategoryCacheItem, Category>();
+            CreateMap<CategoryCacheItem, CategoryViewDto>();
+            CreateMap<CategoryViewDto, CategoryCacheItem>();
         }
     }
 }
