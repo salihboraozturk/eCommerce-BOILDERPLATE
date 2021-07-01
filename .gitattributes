@@ -61,5 +61,5 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-*.1 linguist-documentation
 *.3 linguist-language=text
+.1 linguist-documentation
