@@ -253,3 +253,4 @@ paket-files/
 Logs.txt.*
 Logs.txt
 Logs/
+*.txt
