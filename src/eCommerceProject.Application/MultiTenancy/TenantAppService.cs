@@ -77,17 +77,23 @@ namespace eCommerceProject.MultiTenancy
                 await CurrentUnitOfWork.SaveChangesAsync(); // To get static role ids
 
                 //-----
+                var productsPermission = _permissionManager.GetPermission("Pages.Products");
+                var categoriesPermission = _permissionManager.GetPermission("Pages.Categories");
                 var listPermission = _permissionManager.GetPermission("List");
                 var manuplationPermission = _permissionManager.GetPermission("Manipulation");
                 
                 var moderatorRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Mod);
                 await _roleManager.GrantPermissionAsync(moderatorRole, listPermission);
                 await _roleManager.GrantPermissionAsync(moderatorRole, manuplationPermission);
+                await _roleManager.GrantPermissionAsync(moderatorRole, productsPermission);
+                await _roleManager.GrantPermissionAsync(moderatorRole, categoriesPermission);
 
                 var userRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.User);
-                await _roleManager.GrantPermissionAsync(userRole, listPermission); 
+                await _roleManager.GrantPermissionAsync(userRole, listPermission);
+                await _roleManager.GrantPermissionAsync(userRole, productsPermission);
+                await _roleManager.GrantPermissionAsync(userRole, categoriesPermission);
                 //-----
-          
+
 
                 // Grant all permissions to admin role
                 var adminRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Admin);

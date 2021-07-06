@@ -16,6 +16,15 @@ namespace eCommerceProject.Categories.DTO
             CreateMap<CategoryCacheItem, Category>();
             CreateMap<CategoryCacheItem, CategoryViewDto>();
             CreateMap<CategoryViewDto, CategoryCacheItem>();
+
+            CreateMap<Category, CreateCategoryDto>();
+            CreateMap<CreateCategoryDto, Category>();
+            CreateMap<Category, UpdateCategoryDto>();
+            CreateMap<UpdateCategoryDto, Category>();
+            CreateMap<Category, GetCategoryDto>();
+            CreateMap<GetCategoryDto, Category>();
+
+
         }
     }
 }

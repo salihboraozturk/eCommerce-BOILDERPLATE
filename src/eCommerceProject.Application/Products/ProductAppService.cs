@@ -19,6 +19,7 @@ using eCommerceProject.Models.Categories;
 
 namespace eCommerce.Products
 {
+    [AbpAuthorize(PermissionNames.Pages_Products)]
     public class ProductAppService : ApplicationService, IProductAppService, ITransientDependency
     {
         private readonly IRepository<Product> _productRepository;

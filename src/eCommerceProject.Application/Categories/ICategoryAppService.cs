@@ -11,9 +11,9 @@ namespace eCommerce.Categories
 {
     public interface ICategoryAppService:IApplicationService
     {
-        Task<List<CategoryViewDto>> GetAll();
-        Task CreateOrEdit(CreateOrEditCategoryDto input);
-        Task<CategoryViewDto> GetCategoryById(int id);
-        Task Delete(DeleteCategoryDto input);
+        //Task<List<CategoryViewDto>> GetAll();
+        //Task CreateOrEdit(CreateOrEditCategoryDto input);
+        //Task<CategoryViewDto> GetCategoryById(int id);
+        //Task Delete(DeleteCategoryDto input);
     }
 }

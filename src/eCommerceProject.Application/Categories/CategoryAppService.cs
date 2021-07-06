@@ -1,6 +1,6 @@
-﻿using Abp.Application.Services;
+﻿
 using Abp.Authorization;
-using Abp.Domain.Repositories;
+
 using Abp.ObjectMapping;
 using Abp.Runtime.Session;
 using Abp.UI;
@@ -16,26 +16,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eCommerceProject.Products.Dto;
+using Abp.Application.Services;
+using Abp.Domain.Repositories;
 
 namespace eCommerce.Categories
 {
-    
+    [AbpAuthorize(PermissionNames.Pages_Categories)]
     public class CategoryAppService : ApplicationService, ICategoryAppService
     {
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Category> _repository;
         private readonly IAbpSession _session;
         private readonly ILogger _logger;
         private readonly ICategoryCache _categoryCache;
 
-        public CategoryAppService(IRepository<Category> categoryRepository, IAbpSession session, ILogger logger,
+        public CategoryAppService(IRepository<Category> repository, IAbpSession session, ILogger logger,
             ICategoryCache categoryCache)
         {
-            _categoryRepository = categoryRepository;
+            _repository = repository;
             _session = session;
             _logger = logger;
             _categoryCache = categoryCache;
         }
-        [AbpAuthorize(PermissionNames.List)] 
+
+
+        [AbpAuthorize(PermissionNames.List)]
         public async Task<CategoryViewDto> GetCategoryById(int id)
         {
             CategoryViewDto category = ObjectMapper.Map<CategoryViewDto>(await _categoryCache.GetAsync(id));
@@ -51,8 +56,8 @@ namespace eCommerce.Categories
         [AbpAuthorize(PermissionNames.List)]
         public async Task<List<CategoryViewDto>> GetAll()
         {
-            return await (from category in _categoryRepository.GetAll()
-                select (ObjectMapper.Map<CategoryViewDto>(category))).ToListAsync();
+            return await (from category in _repository.GetAll()
+                          select (ObjectMapper.Map<CategoryViewDto>(category))).ToListAsync();
         }
 
         [AbpAuthorize(PermissionNames.Manipulation)]
@@ -60,7 +65,7 @@ namespace eCommerce.Categories
         {
             if (input.Id == null)
             {
-                if (await _categoryRepository.FirstOrDefaultAsync(c => c.CategoryName == input.CategoryName) != null)
+                if (await _repository.FirstOrDefaultAsync(c => c.CategoryName == input.CategoryName) != null)
                 {
                     throw new UserFriendlyException("InsertFailed", "CategoryAlreadyExist");
                     // throw new UserFriendlyException(L("InsertFailed"), L("CategoryAlreadyExist"));
@@ -79,29 +84,29 @@ namespace eCommerce.Categories
         [AbpAuthorize(PermissionNames.Manipulation)]
         public async Task Delete(DeleteCategoryDto input)
         {
-            Category category = await _categoryRepository.GetAsync((int)input.Id);
+            Category category = await _repository.GetAsync((int)input.Id);
             _logger.Info("Deleting a category with given input " + input + " by user :" + _session.GetUserId());
-            await _categoryRepository.DeleteAsync(category);
+            await _repository.DeleteAsync(category);
         }
 
 
         private async Task<CategoryViewDto> GetCategoryByIdFromDb(int id)
         {
-            return await (from category in _categoryRepository.GetAll()
-                where category.Id == id
-                select (ObjectMapper.Map<CategoryViewDto>(category))).FirstOrDefaultAsync();
+            return await (from category in _repository.GetAll()
+                          where category.Id == id
+                          select (ObjectMapper.Map<CategoryViewDto>(category))).FirstOrDefaultAsync();
         }
 
-     
+
 
         private async Task Create(CreateOrEditCategoryDto input)
         {
-            await _categoryRepository.InsertAsync(ObjectMapper.Map<Category>(input));
+            await _repository.InsertAsync(ObjectMapper.Map<Category>(input));
         }
 
         private async Task Update(CreateOrEditCategoryDto input)
         {
-            Category category = await _categoryRepository.GetAsync((int) input.Id);
+            Category category = await _repository.GetAsync((int)input.Id);
             ObjectMapper.Map(input, category);
         }
     }

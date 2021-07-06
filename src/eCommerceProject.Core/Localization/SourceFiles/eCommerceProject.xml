@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
-    <text name="Products" value="Products" />
+    <text name="Products" value="Products" /> 
+    <text name="ProductName">Product Name</text>
+    <text name="QuantityPerUnit">Quantity Per Unit</text>
+    <text name="UnitPrice">Unit Price</text>
+    <text name="UnitsInStock">Units In Stock</text>
+    <text name="Categories" value="Categories" />
+    <text name="CategoryName">Category Name</text>
     <text name="HomePage" value="Home page" />
     <text name="About" value="About" />
     <text name="WelcomeMessage" value="Welcome to eCommerceProject!" />

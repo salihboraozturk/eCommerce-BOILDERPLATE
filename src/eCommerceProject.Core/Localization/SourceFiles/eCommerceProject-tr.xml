@@ -2,6 +2,12 @@
 <localizationDictionary culture="tr">
   <texts>
     <text name="Products" value="Ürünler" />
+    <text name="ProductName">Ürün Adı</text>
+    <text name="QuantityPerUnit">Birim Başına Miktar</text>
+    <text name="UnitPrice">Birim Fiyatı</text>
+    <text name="UnitsInStock">Stok Adedi</text>
+    <text name="Categories" value="Kategoriler" />
+    <text name="CategoryName">Kategori Adı</text>
     <text name="HomePage" value="Ana Sayfa" />
     <text name="About" value="Hakkında" />
     <text name="WelcomeMessage" value="eCommerceProject projesine hoşgeldiniz!" />
